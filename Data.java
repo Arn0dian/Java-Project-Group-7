@@ -151,10 +151,7 @@ public class Data {
 		return(Math.sqrt(variance()));
 	}
 	
-	
-	/* HOW TO IMPLEMENT THIS IN THE MAIN METHOD */
-	
-	/* how to input second array */
+	// Taking a Data object as an parameter	
 	
 	public double coVariance(Data obj) throws UnequalArrayException {
 		
@@ -176,7 +173,6 @@ public class Data {
 		}
 	}
 	
-	/* how to input second array */
 	
 	public double correlation(Data obj) throws UnequalArrayException {
 		
@@ -217,10 +213,11 @@ public class Data {
 		}
 	}
 	
-	public Map<Double, Integer>  frequencyNumber(int size)
+	public Map<Double, Integer>  frequencyNumber()
     {
         // Creating a HashMap containing integer
         // as a key and occurrences as a value
+	int size = arr.length;
         HashMap<Double, Integer> freqMap = new HashMap<Double, Integer>();
  
         for (int i=0;i<size;i++) {
