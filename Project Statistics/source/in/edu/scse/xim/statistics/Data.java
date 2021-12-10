@@ -73,7 +73,7 @@ public class Data {
 		return(sum);
 	}
 	
-//functiosizeoverloading
+	// overloaded method
 	public double sumCalc() {    
 		double sum = 0;
 		for(double i : arr) {
@@ -152,9 +152,6 @@ public class Data {
 	}
 	
 	
-	/* HOW TO IMPLEMENT THIS IN THE MAIN METHOD */
-	
-	/* how to input second array */
 	
 	public double coVariance(Data obj) throws UnequalArrayException {
 		
@@ -176,7 +173,6 @@ public class Data {
 		}
 	}
 	
-	/* how to input second array */
 	
 	public double correlation(Data obj) throws UnequalArrayException {
 		
