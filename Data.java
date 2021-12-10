@@ -152,10 +152,6 @@ public class Data {
 	}
 	
 	
-	/* HOW TO IMPLEMENT THIS IN THE MAIN METHOD */
-	
-	/* how to input second array */
-	
 	public double coVariance(Data obj) throws UnequalArrayException {
 		
 		int sizeN = (this.arr).length;
@@ -176,7 +172,6 @@ public class Data {
 		}
 	}
 	
-	/* how to input second array */
 	
 	public double correlation(Data obj) throws UnequalArrayException {
 		
