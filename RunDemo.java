@@ -7,10 +7,12 @@ class RunDemo{
 		System.out.println("How many entries? ");
         	int size = input.nextInt();
 		System.out.println("Enter your Data Set separated by a new line");
+		
 		for(int i = 0; i < size; i++) {
 			System.out.print("Enter your value: ");
 			arr[i] = input.nextDouble();
-        }
+        	}
+		
 		Data values = new Data(size,arr);
 		
 		int flag;
@@ -36,9 +38,11 @@ class RunDemo{
             		System.out.println("15. Calculate frequency number");
 			System.out.println("ENTER 0 TO QUIT.");
 
-            int i = input.nextInt();
+            		int i = input.nextInt();
 			
+			// driver code only executes when i is not 0
 			switch(i){
+			
 				case 1 :
 					System.out.println("Printing median: " +  values.medianCalc());
 					System.out.print("\033[H\033[2J"); // clear screen
@@ -130,15 +134,14 @@ class RunDemo{
                 
 					for (Map.Entry<Double,Integer> iterator :values.frequencyNumber().entrySet())
                    `			{
-                        		System.out.println(iterator.getKey() +" element has frequency "+iterator.getValue());
+                        			System.out.println(iterator.getKey() + " element has frequency " + iterator.getValue());
                         		}
 					System.out.print("\033[H\033[2J"); // clear screen
 					System.out.flush(); // clear screen
-					break;
-		}
-		flag--;
-	}
-    System.out.println("Terminated.");
-}
-}
+					break; 
+			} // end of switch
+		} // end of while
+    		System.out.println("Terminated.");
+	} // end of main
+} // end of driver class
 
