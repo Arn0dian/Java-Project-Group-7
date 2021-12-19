@@ -1,13 +1,17 @@
-package in.edu.scse.xim.statistics;
 import java.util.*;
 class RunDemo{
 	public static void main(String args[]){
 		
 		Scanner input = new Scanner(System.in);
 		
-		System.out.print("How many entries? ");
-        int size = input.nextInt();
-		Data values = new Data(size); 
+		System.out.println("How many entries? ");
+        	int size = input.nextInt();
+		System.out.println("Enter your Data Set separated by a new line");
+		for(int i = 0; i < size; i++) {
+			System.out.print("Enter your value: ");
+			arr[i] = input.nextDouble();
+        }
+		Data values = new Data(size,arr);
 		
 		int flag;
 		flag = input.nextInt();
@@ -29,7 +33,7 @@ class RunDemo{
 			System.out.println("12. Calculate co-variance");
 			System.out.println("13. Calculate standard deviation");
 			System.out.println("14. Calculate correlation");
-            System.out.println("15. Calculate frequency number");
+            		System.out.println("15. Calculate frequency number");
 			System.out.println("ENTER 0 TO QUIT.");
 
             int i = input.nextInt();
@@ -115,7 +119,7 @@ class RunDemo{
 				
 				case 14 :
                 
-                    Data b = new Data(size);
+                    			Data b = new Data(size);
 					System.out.println("Printing correlation: " +  values.correlation(b));
                     
 					System.out.print("\033[H\033[2J"); // clear screen
@@ -124,10 +128,10 @@ class RunDemo{
 					
 				case 15 :
                 
-					for (Map.Entry<Double,Integer> iterator :values.frequencyNumber(size).entrySet())
-                    {
-                        System.out.println(iterator.getKey() +" element has frequency "+iterator.getValue());
-                        }
+					for (Map.Entry<Double,Integer> iterator :values.frequencyNumber().entrySet())
+                   `			{
+                        		System.out.println(iterator.getKey() +" element has frequency "+iterator.getValue());
+                        		}
 					System.out.print("\033[H\033[2J"); // clear screen
 					System.out.flush(); // clear screen
 					break;
@@ -137,3 +141,4 @@ class RunDemo{
     System.out.println("Terminated.");
 }
 }
+
