@@ -135,7 +135,7 @@ class RunDemo{
 				
 				case 14 :
                 
-                    System.out.println("How many entries? ");
+					System.out.println("How many entries? ");
 					int newSize2 = input.nextInt();
 					double newArr2[] = new double[newSize2];
 					System.out.println("Enter your Data Set separated by a new line");
