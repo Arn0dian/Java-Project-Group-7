@@ -160,8 +160,7 @@ public class Data {
 	
 	//method to calculate standard deviation
 	public double stndDeviation() {
-		int size = arr.length;
-		return(Math.sqrt(variance()));
+		return(Math.sqrt(this.variance()));
 	}
 	
 	
