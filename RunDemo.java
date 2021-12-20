@@ -35,7 +35,7 @@ class RunDemo{
 			System.out.println("12. Calculate co-variance");
 			System.out.println("13. Calculate standard deviation");
 			System.out.println("14. Calculate correlation");
-            System.out.println("15. Calculate frequency number");
+            		System.out.println("15. Print entries mapped with their frequencies");
 
 
             int i = input.nextInt();
