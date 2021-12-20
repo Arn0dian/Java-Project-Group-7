@@ -4,33 +4,34 @@ import java.util.*;
 public class Data {
 	
 	double arr[];  // INSTANCE VARIABLE
+	int size; // INSTANCE VARIABLE
 	
 
 	/* CONSTRUCTOR */
-	public Data(int size) throws DataSetEmptyException{
+	public Data(int size, double input[]) throws DataSetEmptyException{
     
 		arr = new double[size];
-		Scanner input = new Scanner(System.in);
-		System.out.println();
-        for(int i = 0; i < size; i++) {
-			System.out.print("Enter your value: ");
-			arr[i] = input.nextDouble();
-        }
+		this.size = size;
+		//checking if the dataset recieved as parameter is empty, if yes, we throw an exception
 		if (size== 0) {
-            throw new DataSetEmptyException("Array is empty");
+            throw new DataSetEmptyException("Please add some values in your data");
         }
-		
-		System.out.println();
-		
+		if (input.length==0){
+			throw new DataSetEmptyException("Please add some values in your data");
+		}
+        for(int i = 0; i < size; i++) {
+			arr[i] = input[i];
+        }
+						
 	}
 	
 	/* METHODS */
 	
+	
 	public double medianCalc()
     {		
         Arrays.sort(arr); // we sort the array to calculate the median
-        int size = arr.length;
-        if (size% 2 != 0) // check for evesizecase
+        if (size% 2 != 0) // check for even size case
             return(double)arr[size/ 2];
  
         return(double)(arr[(size- 1) / 2] + arr[size/ 2]) / 2.0;
@@ -39,7 +40,6 @@ public class Data {
 	
 	public  double meanCalc() {
 		  
-		  int size = arr.length;
 		  double sum = 0;
 		  
 	      for(int i = 0; i < size; i++) {
@@ -49,11 +49,10 @@ public class Data {
 	      return(sum/(float)size);
 	}
 	
-	
+	//calculating frequency of a particular element
 	public int freqCalc() {
 		
 		int count=0;
-		int size = arr.length;
 		
 		for (double i : arr) 
 		{
@@ -64,7 +63,7 @@ public class Data {
 		return(count);
 	}
 	
-	
+	//Utility method for returning sum of values a different array
 	public double sumCalc(double array[]) {    
 		double sum = 0;
 		for(double i : array) {
@@ -73,15 +72,17 @@ public class Data {
 		return(sum);
 	}
 	
-	// overloaded method
+	//Utility method for returning sum of values of the array of the particular object
 	public double sumCalc() {    
 		double sum = 0;
-		for(double i : arr) {
+		for(double i : this.arr) {
 			sum+=i;
 		}
 		return(sum);
 	}
 	
+	
+	//finding the maximum element in the Dataset
 	public  double maxCalc() {
 		double max = arr[0];
 		for (double i : arr ) {
@@ -93,6 +94,8 @@ public class Data {
 	}
 	
 	
+	
+	//Finding the minimum element in the Dataset
 	public  double minCalc() {
 		double min= arr[0];
 		for (double i : arr ) {
@@ -103,38 +106,47 @@ public class Data {
 		return(min);
 	}
 
+
+	//calculating the trimmed mean taking percentage trimmed as input
 	public  double trimmedMean(double perc) {
-		int g = (int)Math.floor((perc/100)*arr.length);
-		int len = arr.length - 2*g;
+		int g = (int)Math.floor((perc/100)*size);
+		int len = size - 2*g;
 		double temp[] = arr.clone();
-		Arrays.sort(arr);
-		for(int i = 0; i<arr.length && g!=0;i++) {
+		Arrays.sort(temp);
+		for(int i = 0; i<size && g!=0;i++,g--) {
 			temp[i] = 0;
-			temp[arr.length-(i+1)] = 0 ;
-			g--;
-		}
+			temp[arr.length-(i+1)] = 0 ;//defining the trimmed values as 0
+			}
 		return(this.sumCalc(temp)/len);
 	}
 	
 	
+	
+	//method to calculate the firstQuartile
 	public double firstQuartile() {
 		double b[] = arr.clone();
 		Arrays.sort(b);
-		return(b[(int)(Math.floor(((b.length+1)/4)))]);
+		return(b[(int)(Math.floor(((size+1)/4)))]);
 	}
 	
 	
+	
+	//method to calculate the second quartile
 	public double thirdQuartile() {
 		double b[] = arr.clone();
 		Arrays.sort(b);
-		return(b[(int)(Math.floor((3*(b.length+1)/4)))]);
+		return(b[(int)(Math.floor((3*(size+1)/4)))]);
 	}
 	
+	
+	//method to calculate inter-quartile 
 	public double interQuartile()
 	{
 	    return(thirdQuartile()-firstQuartile());
 	}
-
+	
+	
+	//method to calculate variance
 	public double variance() {
 		double squareDifference = 0;
 		int size = arr.length;
@@ -146,6 +158,7 @@ public class Data {
 	}
 	
 	
+	//method to calculate standard deviation
 	public double stndDeviation() {
 		int size = arr.length;
 		return(Math.sqrt(variance()));
@@ -153,46 +166,40 @@ public class Data {
 	
 	
 	
+	// Taking a Data object as an parameter		
 	public double coVariance(Data obj) throws UnequalArrayException {
 		
-		int sizeN = (this.arr).length;
-		int sizeM = (obj.arr).length;
-		if(sizeN!=sizeM) {
-			throw new UnequalArrayException("Co-variance functions require arrays of equal length");
+
+		if(this.size!=obj.size) {
+			throw new UnequalArrayException("Co-variance methods require arrays of equal length");
 
 		}
 		else {
 			double sum = 0;
-		    double mean_a = meanCalc();
-		    double mean_b = meanCalc();
+		    double mean_a = this.meanCalc();
+		    double mean_b = obj.meanCalc();
 		   
-		    for(int i = 0; i < sizeN; i++)
-		        sum = sum + (this.arr[i] - mean_a) *
-		                        (obj.arr[i] - mean_b);
-		    return sum / (sizeN - 1);
+		    for(int i = 0; i < this.size; i++)
+		        sum = sum + (this.arr[i] - mean_a) * (obj.arr[i] - mean_b);
+		    return sum / (this.size - 1);
 		}
 	}
 	
 	
+	
+	//method to calculate correlation
 	public double correlation(Data obj) throws UnequalArrayException {
 		
-		int sizeN = (this.arr).length;
-		int sizeM = (obj.arr).length;
 
-		if (sizeN != sizeM) {
-			throw new UnequalArrayException("Co-relation functions require arrays of equal length");
+		if (this.size != obj.size) {
+			throw new UnequalArrayException("Co-relation methods require arrays of equal length");
 		}
 		else {
-			double sum_a = 0, sum_b = 0, sum_ab = 0;
+			double sum_a = this.sumCalc(), sum_b = obj.sumCalc(), sum_ab = 0;
 	        double squaresum_a = 0, squaresum_b = 0;
 	       
-	        for (int i = 0; i < sizeN; i++)
-	        {
-	            // sum of elements of array a
-	            sum_a = sum_a + this.arr[i];
-	       
-	            // sum of elements of array bY.
-	            sum_b = sum_b + obj.arr[i];
+	        for (int i = 0; i < this.size; i++)
+	        {            
 	       
 	            // sum of a[i] * b[i].
 	            sum_ab = sum_ab + this.arr[i] * obj.arr[i];
@@ -204,16 +211,18 @@ public class Data {
 	        }
 	            // use formula for calculating correlation 
 	            // coefficient.	            
-	            double corr = (float)(sizeN * sum_ab - sum_a * sum_b)/
-	                     (float)(Math.sqrt((sizeN * squaresum_a -
-	                     sum_a * sum_a) * (sizeN * squaresum_b - 
+	            double corr = (float)(this.size * sum_ab - sum_a * sum_b)/
+	                     (float)(Math.sqrt((this.size * squaresum_a -
+	                     sum_a * sum_a) * (this.size * squaresum_b - 
 	                     sum_b * sum_b)));
 	            
 	            return corr;
 		}
 	}
 	
-	public Map<Double, Integer>  frequencyNumber(int size)
+	
+	//method to return a map where dataset elements are the keys and their frequency is the value
+	public Map<Double, Integer>  frequencyNumber()
     {
         // Creating a HashMap containing integer
         // as a key and occurrences as a value
